@@ -194,6 +194,15 @@ iwAction::iwAction(GameInterface& gi, GameWorldView& gwv, const Tabs& tabs, MapP
         if(!player.CanBuildCatapult()) //-V807
             building_available[1][12] = false;
 
+        // Mines
+        if (!player.CanBuildMine()) {
+            building_available[3][0] = false;
+            building_available[3][1] = false;
+            building_available[3][2] = false;
+            building_available[3][3] = false;
+
+        }
+
         // Charburner
         if(!gwv.GetWorld().GetGGS().isEnabled(AddonId::CHARBURNER))
             building_available[2][3] = false;

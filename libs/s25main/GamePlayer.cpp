@@ -2160,6 +2160,20 @@ bool GamePlayer::CanBuildCatapult() const
     return bc.buildings[BLD_CATAPULT] + bc.buildingSites[BLD_CATAPULT] < max;
 }
 
+bool GamePlayer::CanBuildMine() const
+{
+    // If the addon AddonID::MINE_RATIO is not enabled, return true
+    if (!gwg.GetGGS().isEnabled(AddonId::MINE_RATIO))
+        return true;
+
+    BuildingCount bc = buildings.GetBuildingNums();
+
+    unsigned mineCount = bc.buildings[BLD_IRONMINE] + bc.buildings[BLD_GOLDMINE] + bc.buildings[BLD_COALMINE] + bc.buildings[BLD_GRANITEMINE];
+    mineCount += bc.buildingSites[BLD_IRONMINE] + bc.buildingSites[BLD_GOLDMINE] + bc.buildingSites[BLD_COALMINE] + bc.buildingSites[BLD_GRANITEMINE];
+
+    return mineCount < 12;
+}
+
 /// A ship has discovered new hostile territory --> determines if this is new
 /// i.e. there is a sufficient distance to older locations
 /// Returns true if yes and false if not

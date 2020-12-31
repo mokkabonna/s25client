@@ -28,6 +28,8 @@
 #include "addons/AddonRefundMaterials.h"
 #include "addons/AddonRefundOnEmergency.h"
 
+#include "addons/AddonMineRatio.h"
+
 #include "addons/AddonCharburner.h"
 #include "addons/AddonDemolitionProhibition.h"
 #include "addons/AddonTrade.h"
