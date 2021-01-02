@@ -24,6 +24,7 @@
 #include "addons/AddonCatapultHitChance.h"
 #include "addons/AddonExhaustibleWater.h"
 #include "addons/AddonInexhaustibleMines.h"
+#include "addons/AddonIncreaseMineSupply.h"
 #include "addons/AddonLimitCatapults.h"
 #include "addons/AddonManualRoadEnlargement.h"
 #include "addons/AddonMetalworksBehaviorOnZero.h"

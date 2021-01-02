@@ -24,6 +24,7 @@
 #include "network/GameClient.h"
 #include "ogl/glArchivItem_Bitmap_Player.h"
 #include "world/GameWorldGame.h"
+#include "random/Random.h"
 
 nofMiner::nofMiner(const MapPoint pos, const unsigned char player, nobUsual* workplace)
     : nofWorkman(JOB_MINER, pos, player, workplace)
@@ -95,8 +96,12 @@ bool nofMiner::StartWorking()
     bool inexhaustibleRes =
       settings.isEnabled(AddonId::INEXHAUSTIBLE_MINES)
       || (workplace->GetBuildingType() == BLD_GRANITEMINE && settings.isEnabled(AddonId::INEXHAUSTIBLE_GRANITEMINES));
-    if(!inexhaustibleRes)
-        gwg->ReduceResource(resPt);
+    if (!inexhaustibleRes){
+        // If MINE_SUPPLY addon is enabled, only consume resources 2/3 of the time.
+        if (!settings.isEnabled(AddonId::MINE_SUPPLY) || RANDOM.Rand(__FILE__, __LINE__, GetObjId(), 3) > 0) {
+            gwg->ReduceResource(resPt);
+
+    }
     return nofWorkman::StartWorking();
 }
 
