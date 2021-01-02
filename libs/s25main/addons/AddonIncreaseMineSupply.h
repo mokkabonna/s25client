@@ -31,22 +31,3 @@ public:
             _("Mines will not always consume resources"))
     {}
 };
-
-
-/**
- *  Addon allows users to adjust the percentage of trees that have the recurring spawn animal event
- */
-class AddonMineSupplyIncrease : public AddonList
-{
-public:
-    AddonMineSupplyIncrease()
-        : AddonList(AddonId::MINE_SUPPLY_INCREASE, AddonGroup::Military, _("Adjust mine supply increase ratio"),
-            _("Adjust how often the mines will consume resources. Does not have any effect unless 'Increase supply in mines' is enabled"),
-            {
-              _("50%"),
-              _("33%"),
-              _("25%"),
-              _("100%"),
-            })
-    {}
-};
