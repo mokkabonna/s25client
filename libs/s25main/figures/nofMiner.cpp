@@ -98,7 +98,7 @@ bool nofMiner::StartWorking()
       || (workplace->GetBuildingType() == BLD_GRANITEMINE && settings.isEnabled(AddonId::INEXHAUSTIBLE_GRANITEMINES));
     if (!inexhaustibleRes){
         // If MINE_SUPPLY addon is enabled, only consume resources 2/3 of the time.
-        if (!settings.isEnabled(AddonId::MINE_SUPPLY) || RANDOM.Rand(__FILE__, __LINE__, GetObjId(), 3) > 0) {
+        if (!settings.isEnabled(AddonId::MINE_SUPPLY) || RANDOM.Rand(__FILE__, __LINE__, GetObjId(), 3) > 0)
             gwg->ReduceResource(resPt);
 
     }
