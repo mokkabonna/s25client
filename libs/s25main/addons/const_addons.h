@@ -37,7 +37,7 @@
 // 00C Flamefire
 // 00D Shawn8901
 // 00E Jonathan
-// 00F Hexoplon
+
 
 // Do not forget to add your Addon to GlobalGameSettings::registerAllAddons @ GlobalGameSettings.cpp!
 // Never use a number twice!
@@ -56,6 +56,8 @@ ENUM_WITH_STRING(AddonId, LIMIT_CATAPULTS = 0x00000000, INEXHAUSTIBLE_MINES = 0x
                  CATAPULT_HITCHANCE = 0x00F00000,
                  MINE_SUPPLY = 0x00F00002,
 
+                 MINE_RATIO = 0x0F000003,
+    
                  DEMOLITION_PROHIBITION = 0x00100000, CHARBURNER = 0x00100001, TRADE = 0x00100002,
 
                  CHANGE_GOLD_DEPOSITS = 0x00200000, MAX_WATERWAY_LENGTH = 0x00200001,

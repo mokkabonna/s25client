@@ -18,10 +18,13 @@
 #include "nofWorkman.h"
 #include "EventManager.h"
 #include "SoundManager.h"
+#include "GlobalGameSettings.h"
 #include "buildings/nobUsual.h"
 #include "world/GameWorldGame.h"
 #include "gameData/GameConsts.h"
 #include "gameData/JobConsts.h"
+#include "addons/const_addons.h"
+#include "random/Random.h"
 
 nofWorkman::nofWorkman(const Job job, const MapPoint pos, const unsigned char player, nobUsual* workplace)
     : nofBuildingWorker(job, pos, player, workplace)
@@ -118,11 +121,28 @@ struct NodeHasResource
 
 MapPoint nofWorkman::FindPointWithResource(Resource::Type type) const
 {
-    // Alle Punkte durchgehen, bis man einen findet, wo man graben kann
-    std::vector<MapPoint> pts =
-      gwg->GetPointsInRadius<1>(pos, MINER_RADIUS, Identity<MapPoint>(), NodeHasResource(*gwg, type), true);
-    if(!pts.empty())
-        return pts.front();
+    if (!gwg->GetGGS().isEnabled(AddonId::MINE_RATIO)) {
+        // Alle Punkte durchgehen, bis man einen findet, wo man graben kann
+        std::vector<MapPoint> pts =
+            gwg->GetPointsInRadius<1>(pos, MINER_RADIUS, Identity<MapPoint>(), NodeHasResource(*gwg, type), true);
+        if (!pts.empty())
+            return pts.front();
+    }
+    else {
+        // If addon MINE_RATIO is enabled, check if there are any mineable resources available
+        std::vector<std::vector<MapPoint>> points;
+        points.push_back(gwg->GetPointsInRadius<1>(pos, MINER_RADIUS, Identity<MapPoint>(), NodeHasResource(*gwg, Resource::Iron), true));
+        points.push_back(gwg->GetPointsInRadius<1>(pos, MINER_RADIUS, Identity<MapPoint>(), NodeHasResource(*gwg, Resource::Coal), true));
+        points.push_back(gwg->GetPointsInRadius<1>(pos, MINER_RADIUS, Identity<MapPoint>(), NodeHasResource(*gwg, Resource::Gold), true));
+        points.push_back(gwg->GetPointsInRadius<1>(pos, MINER_RADIUS, Identity<MapPoint>(), NodeHasResource(*gwg, Resource::Granite), true));
+
+        // Remove any empty elements (unavailable resources) from the vector
+        points.erase(std::remove_if(points.begin(), points.end(), [](const std::vector<MapPoint>& i) { return i.empty(); }), points.end());
+
+        // If there are any available resources return a random available map point with resource in MINER_RADIUS
+        if (!points.empty())
+            return points[RANDOM.Rand(__FILE__, __LINE__, GetObjId(), points.size())].front();
+    }
 
     workplace->OnOutOfResources();
 

@@ -342,6 +342,8 @@ public:
     bool hasEmergency() const { return emergency; }
     /// Testet ob der Spieler noch mehr Katapulte bauen darf
     bool CanBuildCatapult() const;
+    // Tests whether the player can build more mines
+    bool CanBuildMine() const;
     /// For debug only
     bool IsDependentFigure(noFigure* fig);
 

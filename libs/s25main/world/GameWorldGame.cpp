@@ -160,6 +160,9 @@ void GameWorldGame::SetBuildingSite(const BuildingType type, const MapPoint pt, 
     if(type == BLD_CATAPULT && !GetPlayer(player).CanBuildCatapult())
         return;
 
+    if ((type == BLD_IRONMINE || type == BLD_GOLDMINE || type == BLD_COALMINE || type == BLD_GRANITEMINE) && !GetPlayer(player).CanBuildMine())
+        return;
+
     DestroyNO(pt, false);
 
     // Baustelle setzen

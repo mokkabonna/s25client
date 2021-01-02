@@ -95,6 +95,8 @@ public:
     bool FindPathOnRoads(const noRoadNode& start, const noRoadNode& target, unsigned* length = nullptr) const;
     /// Checks if it is allowed to build catapults
     bool CanBuildCatapult() const { return player_.CanBuildCatapult(); }
+    // Checks if it is allowed to build mines
+    bool CanBuildMine() const { return player_.CanBuildMine(); }
     /// checks if the player is allowed to build the building type (lua maybe later addon?)
     bool CanBuildBuildingtype(BuildingType bt) const { return player_.IsBuildingEnabled(bt); }
     /// Test whether a player is attackable or not (alliances, etc)

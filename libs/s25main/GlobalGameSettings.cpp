@@ -76,6 +76,7 @@ void GlobalGameSettings::registerAllAddons()
     registerAddon(std::make_unique<AddonCatapultRange>());
     registerAddon(std::make_unique<AddonCatapultHitChance>());
     registerAddon(std::make_unique<AddonIncreaseMineSupply>());
+    registerAddon(std::make_unique<AddonMineRatio>());
 
     registerAddon(std::make_unique<AddonDemolitionProhibition>());
     registerAddon(std::make_unique<AddonCharburner>());
